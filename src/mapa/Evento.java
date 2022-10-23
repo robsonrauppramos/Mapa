@@ -18,12 +18,14 @@ public class Evento {
     private int capacidade;
     private double valor;
     private int numIngressos;
+    private int id;
     
     List<Ingresso> lista = new ArrayList<>();
     public Evento(){
         
     }
-    public Evento(String nome, String data, int capacidade, double valor){
+    public Evento(int id,String nome, String data, int capacidade, double valor){
+        this.id = id;
         this.nome = nome;
         this.data = data;
         this.capacidade = capacidade;
@@ -60,6 +62,12 @@ public class Evento {
     public double getValor(){
         return this.valor;
     }
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
+    }
     public void venderIngresso(Ingresso ingresso){
         lista.add(ingresso);
         numIngressos ++;    
@@ -71,7 +79,7 @@ public class Evento {
     }
     public void mostrarEvento(){
         System.out.println();
-        System.out.println("Nome do evento: " + nome + "\nData do evento: " + data + "\nCapacidade: " + capacidade + "\nIngressos vendidos: " + numIngressos);
+        System.out.println("Id do evento: " + id + "\nNome do evento: " + nome + "\nData do evento: " + data + "\nCapacidade: " + capacidade + "\nIngressos vendidos: " + numIngressos);
         System.out.println();
     }
     public void mostrarListaIngressos(){
