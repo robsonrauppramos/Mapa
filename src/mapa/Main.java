@@ -51,21 +51,25 @@ public class Main {
                     System.out.println();
                 break;
                 case 2:
-                    System.out.println("Digite o id do evento: ");
-                    idEvento = sc.nextInt();
-                    listaEv.get(idEvento).mostrarEvento();
+                    for(Evento evento : listaEv){
+                        System.out.println();
+                        evento.mostrarEvento();
+                        System.out.println();
+                    }
                 break;
                 case 3:
                     System.out.println("Digite o id do evento: ");
                     idEvento = sc.nextInt();
-                    if(listaEv.get(idEvento).getCapacidade()> listaEv.get(idEvento).getNumIng()){
-                        System.out.print("\nDigite o nome do comprador do ingresso: ");
-                        sc.nextLine();
-                        String nomeing = sc.nextLine();
-                        System.out.print("\nDigite o cpf do comprador do ingresso: ");
-                        String cpf = sc.nextLine();
-                        System.out.println("\nEscolha o setor do ingresso: \n1 = Ingresso pista \n2 = Ingresso VIP \n3 = Ingresso camarote");
-                        int tipo = sc.nextInt();
+                    try{
+                        validarId(idEvento, listaEv);
+                        if(listaEv.get(idEvento).getCapacidade()> listaEv.get(idEvento).getNumIng()){
+                            System.out.print("\nDigite o nome do comprador do ingresso: ");
+                            sc.nextLine();
+                            String nomeing = sc.nextLine();
+                            System.out.print("\nDigite o cpf do comprador do ingresso: ");
+                            String cpf = sc.nextLine();
+                            System.out.println("\nEscolha o setor do ingresso: \n1 = Ingresso pista \n2 = Ingresso VIP \n3 = Ingresso camarote");
+                            int tipo = sc.nextInt();
                             System.out.println();
                             switch(tipo){
                                 case 1:
@@ -93,19 +97,32 @@ public class Main {
                                     System.out.println("Valor incorreto voltando ao menu principal");
                                 break;
                             }
-                    }else{
+                        }else{
                         System.out.println("Evento lotado!!");
+                        }    
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
                     }
                 break;
                 case 4:
                     System.out.println("Digite o id do evento: ");
                     idEvento = sc.nextInt();
-                    listaEv.get(idEvento).mostrarListaIngressos();
+                    try{
+                        validarId(idEvento, listaEv);
+                        listaEv.get(idEvento).mostrarListaIngressos();
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                 break;
                 case 5:
                     System.out.println("Digite o id do evento: ");
                     idEvento = sc.nextInt();
-                    listaEv.get(idEvento).mostrarQtdIngressos();
+                    try{
+                        validarId(idEvento, listaEv);
+                        listaEv.get(idEvento).mostrarQtdIngressos();
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                 break;
                 case 0:
                     System.out.println("Saindo do programa!");
@@ -117,6 +134,11 @@ public class Main {
         }while(opcao !=0);    
         sc.close();
     }
-
+    
+    private static void validarId(int idEvento, List listaEv) throws IllegalArgumentException{
+        if (idEvento < 0 || idEvento >= listaEv.size() ) {
+            throw new IllegalArgumentException("\nEsse evento não existe!!! \n");
+        }
+    }    
     
 }
